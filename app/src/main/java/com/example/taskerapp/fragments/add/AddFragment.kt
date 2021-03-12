@@ -29,11 +29,9 @@ class AddFragment : BottomSheetDialogFragment() {
         view.add_btn.setOnClickListener {
             insertDataToDatabase()
         }
-        setHasOptionsMenu(true)
 
         return view
     }
-
 
 
     private fun insertDataToDatabase() {
@@ -46,14 +44,15 @@ class AddFragment : BottomSheetDialogFragment() {
             val user = Task(0, nameOfTask, descriptionOfTask, deadline)
             // Add Data to Database
             mTaskViewModel.addTask(user)
-            Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
+//            Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
             // Navigate Back
             val listFragment = ListFragment()
             requireActivity()
                 .supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.fragment_container, listFragment)
+                .add(R.id.fragment_container, listFragment)
                 .commit()
+            this.dismiss()
         } else {
             Toast.makeText(requireContext(), "Please fill out all fields.", Toast.LENGTH_LONG)
                 .show()

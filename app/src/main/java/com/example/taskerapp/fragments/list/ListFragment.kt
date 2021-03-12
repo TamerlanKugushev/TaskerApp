@@ -23,15 +23,20 @@ class ListFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_list, container, false)
-        val adapter = ListAdapter()
+        val listAdapter = ListAdapter()
         val recyclerView = view.recyclerView
-        recyclerView.adapter = adapter
+        recyclerView.adapter = listAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         mTaskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
-        mTaskViewModel.readAllData.observe(viewLifecycleOwner, Observer { task ->
-            adapter.setData(task)
+        mTaskViewModel.readAllData.observe(viewLifecycleOwner, Observer {
+            listAdapter.setData(ArrayList(it))
+            listAdapter.notifyDataSetChanged()
         })
+
+
+
+
         view.floatingActionButton.setOnClickListener {
             val addFragment = AddFragment()
             addFragment.show(requireActivity().supportFragmentManager, "TAG")

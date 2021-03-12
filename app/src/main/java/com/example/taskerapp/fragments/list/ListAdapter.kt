@@ -35,6 +35,6 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
     fun setData(taskList: List<Task>) {
         this.taskList = taskList
-        notifyDataSetChanged()
+//        notifyDataSetChanged()
     }
 }
